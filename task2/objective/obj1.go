@@ -1,13 +1,12 @@
-package main
+package objective
 
 import (
 	"fmt"
-	"math/rand"
 )
 
-func gen_random() {
+func Gen_random(ran_num int) string {
 
-	var ran_num int = rand.Intn(100)
+	//var ran_num int = rand.Intn(100)
 	fmt.Println(ran_num)
 	var result string = "It 50!"
 	if ran_num < 50 {
@@ -18,10 +17,5 @@ func gen_random() {
 			result = "It's closer to 100, and t's even"
 		}
 	}
-	fmt.Println(result)
-
-}
-
-func main() {
-	gen_random()
+	return result
 }
