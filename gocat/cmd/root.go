@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -62,27 +63,19 @@ func printFile(arg string, lineNum uint) uint {
 	for scanner.Scan() {
 		line := scanner.Text()
 		blankLines := len(strings.TrimSpace(line)) == 0
-		//prefix := fmt.Sprintf("\t%5s\t", strconv.FormatUint(uint64(lineNum), 10))
-		//prefix := ""
 
 		if NumberNonblank && !blankLines {
-			lineNum++
-			//prefix = fmt.Sprintf("\t%5s\t", strconv.FormatUint(uint64(lineNum), 10))
 			fmt.Println(line)
-		} else if !NumberNonblank {
+		} else if Number {
+			prefix := fmt.Sprintf("\t%5s\t", strconv.FormatUint(uint64(lineNum), 10))
+			fmt.Println(prefix, line)
+		} else if !Number && !NumberNonblank {
 			fmt.Println(line)
 		}
-		/*
-			if (NumberNonblank && !blankLines) || (!NumberNonblank && Number) {
-				lineNum++
-				prefix = fmt.Sprintf("\t%5s\t", strconv.FormatUint(uint64(lineNum), 10))
-			}
-		*/
-
-		//fmt.Println(prefix, line)
 		if err := scanner.Err(); err != nil {
 			fmt.Println("Error reading from file:", err)
 		}
+		lineNum++
 	}
 	return lineNum
 }
